@@ -22,7 +22,7 @@ import java.util.Properties;
 @WebServlet("/")
 public class ServletDao extends HttpServlet {
 
-    private UsersDao usersDao;
+    public static UsersDao usersDao;
     private Connection connection;
 
 
@@ -68,5 +68,10 @@ public class ServletDao extends HttpServlet {
         User user = new User(firstName, adress);
         usersDao.save(user);
         doGet(req, resp);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        usersDao.delete(Integer.valueOf(req.getParameter("id")));
     }
 }
